@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Internship {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  company     Company  @relation(fields: [companyId], references: [id])
+  companyId   Int
+  location    String
+  duration    Int
+  stipend     BigInt
+  scrapedAt   DateTime @default(now())
+  skills      Skill[]
+
+  @@index([companyId])
+}
+
+model Company {
+  id              Int    @id @default(autoincrement())
+  name            String @unique
+  hiringSince     Int
+  candidatesHired Int
+  logoUrl         String @db.VarChar(255)
+
+  internships Internship[]
+}
+
+model Skill {
+  id          Int          @id @default(autoincrement())
+  name        String       @unique
+  internships Internship[]
+
+  @@index([name])
+}
