@@ -5,21 +5,32 @@
   "main": "dist/app.js",
   "type": "module",
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "build": "tsc",
-    "dev": "tsx watch src/app.ts",
+    "dev": "node --watch --no-warnings --loader ts-node/esm src/app.ts",
     "prisma:migrate": "prisma migrate deploy",
     "prisma:generate": "prisma generate",
-    "deploy": "npm run build && npm run prisma:generate && npm run prisma:migrate"
+    "deploy": "pnpm run build && pnpm run prisma:generate && pnpm run prisma:migrate"
   },
   "author": "Sarthak Kimtani",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^22.6.1",
+    "@types/body-parser": "^1.19.5",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.7.9",
     "prisma": "^5.21.0",
-    "tsx": "^4.19.1",
+    "ts-node": "^10.9.2",
     "typescript": "^5.6.2"
   },
   "dependencies": {
-    "@prisma/client": "^5.21.0"
+    "@prisma/client": "^5.21.0",
+    "body-parser": "^1.20.3",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.1",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "reflect-metadata": "^0.2.2",
+    "routing-controllers": "^0.10.4",
+    "winston": "^3.15.0"
   }
 }

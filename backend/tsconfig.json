@@ -6,7 +6,8 @@
     "outDir": "./dist",
     "sourceMap": true,
     "strict": true,
-    "typeRoots": ["src/types"]
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
   },
   "ts-node": {
     "esm": true
