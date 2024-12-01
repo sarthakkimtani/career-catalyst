@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { Flame } from "lucide-react";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
@@ -33,7 +34,7 @@ export const Navbar = () => {
       }}
     >
       <motion.div
-        className="flex flex-row w-11/12 sm:w-1/2 md:1/3 lg:w-1/3 items-center px-5 bg-white  h-20 rounded-full mt-12 drop-shadow-xl"
+        className="flex flex-row w-11/12 sm:w-1/2 md:1/3 lg:w-1/3 items-center px-4 bg-white  h-20 rounded-full mt-12 drop-shadow-xl"
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{
@@ -42,11 +43,16 @@ export const Navbar = () => {
           delay: 0.2,
         }}
       >
-        <Image className="w-16 h-16" src={Logo} alt="logo" />
+        <Link href="/">
+          <Image className="w-16 h-16" src={Logo} alt="logo" />
+        </Link>
         <div className="w-4/5 xl:w-1/2 flex flex-row justify-evenly">
-          <a className="px-4 py-2 rounded-2xl font-medium cursor-pointer transition ease-in-out hover:bg-gray-200">
-            About
-          </a>
+          <Link
+            href="/faq"
+            className="px-4 py-2 rounded-2xl font-medium cursor-pointer transition ease-in-out hover:bg-gray-200"
+          >
+            FAQ
+          </Link>
           <a className="px-4 py-2 rounded-2xl font-medium cursor-pointer transition ease-in-out hover:bg-gray-200">
             Search
           </a>

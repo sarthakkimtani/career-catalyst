@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import WhiteLogo from "@/assets/white-logo.svg";
 import FbIcon from "@/assets/brands/facebook.svg";
@@ -14,9 +15,12 @@ export const Footer = () => {
           <p className="text-lg text-white font-medium ml-4">CareerCatalyst</p>
         </div>
         <div className="flex flex-row items-center mt-8">
-          <a className="px-4 py-2 rounded-2xl font-medium cursor-pointer text-white transition ease-in-out hover:bg-gray-800">
-            About
-          </a>
+          <Link
+            href="/faq"
+            className="px-4 py-2 rounded-2xl font-medium cursor-pointer text-white transition ease-in-out hover:bg-gray-800"
+          >
+            FAQ
+          </Link>
           <a className="px-4 py-2 rounded-2xl font-medium cursor-pointer text-white transition ease-in-out hover:bg-gray-800">
             Search
           </a>
