@@ -4,9 +4,10 @@ import asyncio
 from dataclasses import dataclass
 from dotenv import load_dotenv
 
-from scraper.scraper import InternshalaScraper, ScraperConfig
 from scraper.database import Database
 from scraper.logger import setup_logger
+from scraper.providers.internshala import InternshalaScraper
+from scraper.scraper_config import create_scraper_config
 
 
 @dataclass
@@ -39,9 +40,14 @@ class ScraperApp:
         self.config = config
         self.logger = setup_logger()
 
-        scraper_config = ScraperConfig(max_retries=config.max_retries, retry_delay=config.retry_delay)
+        internshala_config = create_scraper_config(base_url=config.scraper_url, max_pages=2)
         self.db = Database(self.logger, config.database_url)
-        self.scraper = InternshalaScraper(url=config.scraper_url, logger=self.logger, db=self.db, config=scraper_config)
+        self.scraper = InternshalaScraper(
+            url=config.scraper_url,
+            logger=self.logger,
+            db=self.db,
+            config=internshala_config,
+        )
 
     async def run(self) -> None:
         try:
