@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { Flame } from "lucide-react";
-import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import { motion, useScroll, useMotionValueEvent } from "motion/react";
 
 import Logo from "@/assets/alt-logo.svg";
 import { Button } from "@/components/ui/Button";
