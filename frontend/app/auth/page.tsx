@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 import Image from "next/image";
 
 import { AuthButton } from "@/components/pages/auth/AuthButton";
 import { AuthVisual } from "@/components/pages/auth/AuthVisual";
+import { axiosInstance } from "@/lib/axios";
 
 import Logo from "@/assets/logo.svg";
 
@@ -10,7 +13,21 @@ export const metadata: Metadata = {
   title: "CareerCatalyst - Login or Signup",
 };
 
-export default function Auth() {
+const redirectIfAuthenticated = async () => {
+  const reqHeaders = await headers();
+  const response = await axiosInstance.get("/me", {
+    headers: {
+      Cookie: reqHeaders.get("cookie"),
+    },
+  });
+  if (response.data) {
+    redirect("/search");
+  }
+};
+
+export default async function Auth() {
+  await redirectIfAuthenticated();
+
   return (
     <section>
       <div className="flex flex-row w-full h-screen items-center justify-center">
