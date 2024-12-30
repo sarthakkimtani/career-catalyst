@@ -1,27 +1,14 @@
 import re
 from typing import Tuple, List, Optional, Dict
-from dataclasses import dataclass
 import logging
 
 import requests
 from bs4 import BeautifulSoup
 from tenacity import retry, stop_after_attempt, wait_fixed
 
-from .models import Internship, Company
-from .database import Database
-
-
-@dataclass
-class ScraperConfig:
-    base_url: str = "https://internshala.com"
-    max_retries: int = 3
-    retry_delay: int = 5
-    max_pages: int = 2
-    user_agent: str = (
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-        "AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/91.0.4472.124 Safari/537.36"
-    )
+from ..models import Internship, Company
+from ..database import Database
+from ..scraper_config import ScraperConfig
 
 
 class InternshipParser:
@@ -47,7 +34,7 @@ class InternshipParser:
 
 
 class InternshalaScraper:
-    def __init__(self, url: str, logger: logging.Logger, db: Database, config: ScraperConfig = ScraperConfig()):
+    def __init__(self, url: str, logger: logging.Logger, db: Database, config: ScraperConfig):
         self.url = url
         self.logger = logger
         self.db = db
@@ -78,7 +65,12 @@ class InternshalaScraper:
             soup = BeautifulSoup(html_content, "html.parser")
 
             description_meta = soup.find(
-                "meta", attrs={"name": "twitter:description", "property": "og:description", "itemprop": "description"}
+                "meta",
+                attrs={
+                    "name": "twitter:description",
+                    "property": "og:description",
+                    "itemprop": "description",
+                },
             )
             description = description_meta["content"] if description_meta else "No description available"
 
@@ -240,12 +232,13 @@ class InternshalaScraper:
         companies = {}
 
         try:
-            self.logger.info(f"Scraping page 1: {self.url}")
-            html_content = self._fetch_page(self.url)
+            initial_url = self.url + "/internships/computer-science-internship"
+            self.logger.info(f"Scraping page 1: {initial_url}")
+            html_content = self._fetch_page(initial_url)
             internship_skill_map.update(self._process_page(html_content, companies))
 
             for page_num in range(2, self.config.max_pages + 1):
-                page_url = f"{self.url}/page-{page_num}"
+                page_url = f"{initial_url}/page-{page_num}"
                 self.logger.info(f"Scraping page {page_num}: {page_url}")
 
                 try:

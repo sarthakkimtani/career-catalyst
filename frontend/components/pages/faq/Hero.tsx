@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { MoveDown } from "lucide-react";
 
 export const Hero = () => {

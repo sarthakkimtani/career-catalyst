@@ -1,7 +1,7 @@
 import { ExpressErrorMiddlewareInterface, HttpError, Middleware } from "routing-controllers";
 import { Request } from "express";
 
-import logger from "../lib/logger.js";
+import { logger } from "../lib/logger.js";
 
 @Middleware({ type: "after" })
 export class CustomErrorHandler implements ExpressErrorMiddlewareInterface {

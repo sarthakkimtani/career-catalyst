@@ -1,6 +1,6 @@
 import { Middleware, ExpressMiddlewareInterface } from "routing-controllers";
 
-import logger from "../lib/logger.js";
+import { logger } from "../lib/logger.js";
 
 @Middleware({ type: "before" })
 export class LoggingMiddleware implements ExpressMiddlewareInterface {
