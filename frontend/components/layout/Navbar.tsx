@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Flame } from "lucide-react";
 import { motion, useScroll, useMotionValueEvent } from "motion/react";
@@ -9,9 +10,21 @@ import { motion, useScroll, useMotionValueEvent } from "motion/react";
 import { Button } from "@/components/ui/Button";
 import Logo from "@/assets/alt-logo.svg";
 
+const NavbarLink = ({ href, children }: { href: string; children: React.ReactNode }) => {
+  return (
+    <Link
+      href={href}
+      className="px-4 py-2 rounded-2xl font-medium cursor-pointer transition ease-in-out hover:bg-gray-200"
+    >
+      {children}
+    </Link>
+  );
+};
+
 export const Navbar = () => {
   const [hidden, setHidden] = useState(false);
   const { scrollY } = useScroll();
+  const router = useRouter();
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious() ?? 0;
@@ -47,18 +60,11 @@ export const Navbar = () => {
           <Image className="w-16 h-16" src={Logo} alt="logo" />
         </Link>
         <div className="w-4/5 xl:w-1/2 flex flex-row justify-evenly">
-          <Link
-            href="/faq"
-            className="px-4 py-2 rounded-2xl font-medium cursor-pointer transition ease-in-out hover:bg-gray-200"
-          >
-            FAQ
-          </Link>
-          <a className="px-4 py-2 rounded-2xl font-medium cursor-pointer transition ease-in-out hover:bg-gray-200">
-            Search
-          </a>
+          <NavbarLink href="/faq">FAQ</NavbarLink>
+          <NavbarLink href="/search">Search</NavbarLink>
         </div>
         <div className="flex w-1/5 xl:w-[30%] xl:ml-8 justify-end">
-          <Button className="xl:w-full">
+          <Button className="xl:w-full" onClick={() => router.push("/trends")}>
             <Flame className="mr-1" />
             <span className="hidden lg:block">Trends</span>
           </Button>

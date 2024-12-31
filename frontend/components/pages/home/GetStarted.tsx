@@ -1,11 +1,17 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
 import { BadgePlus } from "lucide-react";
 
 export const GetStarted = () => {
+  const router = useRouter();
+
   return (
-    <div className="flex flex-col items-center w-[98%] pt-10 bg-white rounded-2xl text-white mb-20">
+    <div
+      className="flex flex-col items-center w-[98%] pt-10 bg-white rounded-2xl text-white mb-20"
+      onClick={() => router.push("/search")}
+    >
       <div className="h-36 mb-10 border-[0.5px] border-gray-300"></div>
       <motion.div
         whileHover={{ scale: 1.05 }}
