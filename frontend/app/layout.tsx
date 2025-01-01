@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import NextTopLoader from "nextjs-toploader";
 
 import "./globals.css";
 
@@ -20,7 +21,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${clashGrotesk.variable} antialiased`}>{children}</body>
+      <body className={`${clashGrotesk.variable} antialiased`}>
+        <NextTopLoader color="#4DA1F5" />
+        {children}
+      </body>
     </html>
   );
 }

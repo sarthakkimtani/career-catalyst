@@ -7,7 +7,6 @@ import { useExpressServer } from "routing-controllers";
 import { toNodeHandler } from "better-auth/node";
 
 import { InternshipController } from "./controllers/InternshipController.js";
-import { MeController } from "./controllers/me-controller.js";
 
 import { LoggingMiddleware } from "./middlewares/LoggingMiddleware.js";
 import { CustomErrorHandler } from "./middlewares/CustomErrorHandler.js";
@@ -24,14 +23,15 @@ const corsOptions = {
 
 const app = express();
 app.use(cors(corsOptions));
-app.all("/auth/*", toNodeHandler(auth));
 
 useExpressServer(app, {
-  controllers: [MeController, InternshipController],
+  controllers: [InternshipController],
   middlewares: [LoggingMiddleware, CustomErrorHandler],
   defaultErrorHandler: false,
   classTransformer: true,
 });
+
+app.all("/auth/*", toNodeHandler(auth));
 
 app.listen(PORT, () => {
   logger.info(`Server running on port ${PORT}`);
