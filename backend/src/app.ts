@@ -10,6 +10,7 @@ import { InternshipController } from "./controllers/InternshipController.js";
 
 import { LoggingMiddleware } from "./middlewares/LoggingMiddleware.js";
 import { CustomErrorHandler } from "./middlewares/CustomErrorHandler.js";
+import { authorizationChecker } from "./middlewares/AuthorizationChecker.js";
 
 import { logger } from "./lib/logger.js";
 import { auth } from "./lib/auth.js";
@@ -27,6 +28,7 @@ app.use(cors(corsOptions));
 useExpressServer(app, {
   controllers: [InternshipController],
   middlewares: [LoggingMiddleware, CustomErrorHandler],
+  authorizationChecker: authorizationChecker,
   defaultErrorHandler: false,
   classTransformer: true,
 });

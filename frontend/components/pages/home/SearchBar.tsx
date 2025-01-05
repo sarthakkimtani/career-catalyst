@@ -19,7 +19,7 @@ export const SearchBar = () => {
       <div className="flex flex-row items-center h-20 w-11/12 md:w-10/12 lg:w-3/5 px-5 mt-12 rounded-full bg-white">
         <Search className="hidden md:block" color="gray" />
         <input
-          className="w-10/12 h-5/6 px-5 text-black text-lg outline-none"
+          className="w-10/12 h-5/6 px-5 text-black text-lg border-none outline-none focus:outline-none focus:ring-0"
           placeholder="Find internships..."
         />
         <Button className="md:w-2/12" onClick={() => router.push("/search")}>

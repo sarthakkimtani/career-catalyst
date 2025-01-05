@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import { CircleDollarSign, MapPinIcon, SearchIcon } from "lucide-react";
 
 import { FilterField } from "@/components/pages/search/FilterField";
@@ -17,12 +17,14 @@ const SearchLink = ({ href, children }: { href: string; children: React.ReactNod
   );
 };
 
-export const SearchBar = ({ userImage }: { userImage: string }) => {
+export const SearchBar = ({ userImage }: { userImage: string | StaticImageData }) => {
   return (
     <div className="flex flex-col w-[98%] p-10 bg-black text-white m-[1%] rounded-2xl">
       <div className="flex flex-row items-center justify-between">
         <div className="flex flex-row w-1/4 items-center justify-start">
-          <Image className="w-10 cursor-pointer" src={Logo} draggable={false} alt="Logo" />
+          <Link href="/">
+            <Image className="w-10 cursor-pointer" src={Logo} draggable={false} alt="Logo" />
+          </Link>
           <h3 className="text-xl font-semibold ml-4">CareerCatalyst</h3>
         </div>
         <div className="hidden lg:flex flex-row w-1/2 justify-center items-center">
@@ -52,6 +54,7 @@ export const SearchBar = ({ userImage }: { userImage: string }) => {
         <FilterField
           icon={<CircleDollarSign size={18} color="#4B5563" />}
           placeholder="Desired Stipend..."
+          last
         />
       </div>
     </div>

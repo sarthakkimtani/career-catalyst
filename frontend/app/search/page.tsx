@@ -3,6 +3,9 @@ import { redirect } from "next/navigation";
 
 import { authClient } from "@/lib/auth-client";
 import { SearchBar } from "@/components/pages/search/SearchBar";
+import { FilterSection } from "@/components/pages/search/FilterSection";
+
+import Avatar from "@/assets/avatar.jpg";
 
 export const metadata = {
   title: "CareerCatalyst - Search Internships",
@@ -18,10 +21,12 @@ export default async function Search() {
     redirect("/auth");
   }
 
-  // TODO: Add skeleton avatar if image is not available
   return (
     <div className="flex flex-col w-full">
-      <SearchBar userImage={data.user.image!} />
+      <SearchBar userImage={data.user.image ?? Avatar} />
+      <div className="flex flex-col justify-start w-full">
+        <FilterSection />
+      </div>
     </div>
   );
 }

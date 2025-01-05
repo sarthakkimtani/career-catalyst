@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${clashGrotesk.variable} antialiased`}>
-        <NextTopLoader color="#4DA1F5" />
+        <NextTopLoader color="#4DA1F5" height={4} />
         {children}
       </body>
     </html>
