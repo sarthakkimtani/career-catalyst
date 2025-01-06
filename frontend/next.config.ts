@@ -15,6 +15,12 @@ const nextConfig: NextConfig = {
         port: "",
         pathname: "**",
       },
+      {
+        protocol: "https",
+        hostname: "internshala-uploads.internshala.com",
+        port: "",
+        pathname: "**",
+      },
     ],
   },
 };

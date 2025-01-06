@@ -12,6 +12,14 @@ const config: Config = {
       fontFamily: {
         sans: ["ClashGrotesk", "sans-serif"],
       },
+      colors: {
+        pastel: {
+          purple: "#E4DBFA",
+          pink: "#FBE2F4",
+          green: "#D5F6ED",
+          yellow: "#FFE1CC",
+        },
+      },
     },
   },
   plugins: [forms],

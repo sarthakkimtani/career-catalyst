@@ -15,7 +15,7 @@ export const FilterSection = () => {
   ];
 
   return (
-    <section className="flex flex-col justify-center w-1/4 p-4 border-r border-gray-300">
+    <section className="hidden lg:flex flex-col justify-start w-1/4 p-4">
       <div className="flex flex-row w-full justify-between px-8">
         <h6 className="text-xl font-semibold">Filters</h6>
         <ChevronDown size={24} color="#000" />

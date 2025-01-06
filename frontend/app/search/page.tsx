@@ -1,9 +1,13 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
-import { authClient } from "@/lib/auth-client";
 import { SearchBar } from "@/components/pages/search/SearchBar";
 import { FilterSection } from "@/components/pages/search/FilterSection";
+import { InternshipsGrid } from "@/components/pages/search/InternshipsGrid";
+import { Footer } from "@/components/layout/Footer";
+
+import { fetchInternships } from "@/lib/api";
+import { getSession } from "@/lib/session";
 
 import Avatar from "@/assets/avatar.jpg";
 
@@ -12,21 +16,21 @@ export const metadata = {
 };
 
 export default async function Search() {
-  const { data } = await authClient.getSession({
-    fetchOptions: {
-      headers: await headers(),
-    },
-  });
-  if (!data) {
-    redirect("/auth");
-  }
+  const reqHeaders = await headers();
+
+  const { data } = await getSession(reqHeaders);
+  if (!data) redirect("/auth");
+
+  const internships = await fetchInternships(reqHeaders.get("cookie"));
 
   return (
-    <div className="flex flex-col w-full">
+    <>
       <SearchBar userImage={data.user.image ?? Avatar} />
-      <div className="flex flex-col justify-start w-full">
+      <div className="flex flex-row justify-start w-full">
         <FilterSection />
+        <InternshipsGrid data={internships} />
       </div>
-    </div>
+      <Footer />
+    </>
   );
 }

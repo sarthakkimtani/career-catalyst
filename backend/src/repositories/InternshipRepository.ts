@@ -5,7 +5,7 @@ import prisma from "../lib/prisma.js";
 
 export class UserRepository {
   async getAllInternships(lastId?: number) {
-    const pageSize = 40;
+    const pageSize = 42;
     const internshipFields = Object.fromEntries(
       Object.keys(Prisma.InternshipScalarFieldEnum)
         .filter((field) => field !== "description")
@@ -21,7 +21,12 @@ export class UserRepository {
       },
       select: {
         ...internshipFields,
-        company: true,
+        company: {
+          select: {
+            name: true,
+            logoUrl: true,
+          },
+        },
       },
     });
   }
