@@ -7,6 +7,7 @@ const config: Config = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  safelist: ["bg-pastel-purple", "bg-pastel-pink", "bg-pastel-green", "bg-pastel-yellow"],
   theme: {
     extend: {
       fontFamily: {

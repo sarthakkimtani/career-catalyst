@@ -46,14 +46,17 @@ export const SearchBar = ({ userImage }: { userImage: string | StaticImageData }
         <FilterField
           icon={<SearchIcon size={18} color="#4B5563" />}
           placeholder="Search Roles..."
+          queryKey="title"
         />
         <FilterField
           icon={<MapPinIcon size={18} color="#4B5563" />}
           placeholder="Enter Location..."
+          queryKey="location"
         />
         <FilterField
           icon={<CircleDollarSign size={18} color="#4B5563" />}
           placeholder="Desired Stipend..."
+          queryKey="stipend"
           last
         />
       </div>
