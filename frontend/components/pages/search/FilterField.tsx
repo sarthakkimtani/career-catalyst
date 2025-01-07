@@ -28,7 +28,9 @@ export const FilterField = ({ icon, placeholder, queryKey, last }: FilterFieldPr
       }
 
       const queryString = params.toString();
-      router.push(`${pathname}${queryString ? `?${queryString}` : ""}`);
+      if (queryString !== searchParams.toString()) {
+        router.push(`${pathname}${queryString ? `?${queryString}` : ""}`);
+      }
     }, 750);
 
     return () => clearTimeout(timer);
