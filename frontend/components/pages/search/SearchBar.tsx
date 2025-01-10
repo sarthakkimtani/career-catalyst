@@ -3,6 +3,7 @@ import Image, { StaticImageData } from "next/image";
 import { CircleDollarSign, MapPinIcon, SearchIcon } from "lucide-react";
 
 import { FilterField } from "@/components/pages/search/FilterField";
+import { UserProfile } from "@/components/pages/search/UserProfile";
 
 import Logo from "@/assets/white-logo.svg";
 
@@ -32,15 +33,7 @@ export const SearchBar = ({ userImage }: { userImage: string | StaticImageData }
           <SearchLink href="/trends">Trends</SearchLink>
           <SearchLink href="/faq">FAQ</SearchLink>
         </div>
-        <div className="flex flex-row w-1/4 justify-end">
-          <Image
-            src={userImage}
-            width={40}
-            height={40}
-            className="rounded-full cursor-pointer"
-            alt="user"
-          />
-        </div>
+        <UserProfile userImage={userImage} />
       </div>
       <div className="flex flex-col lg:flex-row items-center justify-center mt-14 space-y-6 lg:space-y-0 lg:space-x-6">
         <FilterField
