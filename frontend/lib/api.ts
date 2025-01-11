@@ -2,20 +2,25 @@ import { Internship } from "@/lib/definitions";
 
 const baseURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-export const fetchInternships = async (cookie: string): Promise<Internship[]> => {
-  const response = await fetch(`${baseURL}/internships`, {
-    headers: {
-      "Content-Type": "application/json",
-      Cookie: cookie,
-    },
-    next: {
-      revalidate: 10800,
-    },
-  });
-  if (!response.ok) {
-    throw new Error("Network response was not ok");
-  }
+export const fetchInternships = async (cookie: string) => {
+  try {
+    const response = await fetch(`${baseURL}/internships`, {
+      headers: {
+        "Content-Type": "application/json",
+        Cookie: cookie,
+      },
+      next: {
+        revalidate: 7200,
+      },
+    });
 
-  const data: Internship[] = await response.json();
-  return data;
+    if (!response.ok) {
+      return { data: null, error: "An Error Occurred" };
+    }
+
+    const data: Internship[] = await response.json();
+    return { data, error: null };
+  } catch (error) {
+    return { data: null, error: (error as Error).message };
+  }
 };

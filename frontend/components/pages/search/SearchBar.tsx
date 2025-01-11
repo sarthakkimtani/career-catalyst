@@ -28,7 +28,7 @@ export const SearchBar = ({ userImage }: { userImage: string | StaticImageData }
           </Link>
           <h3 className="text-xl font-semibold ml-4">CareerCatalyst</h3>
         </div>
-        <div className="hidden lg:flex flex-row w-1/2 justify-center items-center">
+        <div className="hidden lg:flex flex-row w-1/3 justify-start items-center">
           <SearchLink href="/">Features</SearchLink>
           <SearchLink href="/trends">Trends</SearchLink>
           <SearchLink href="/faq">FAQ</SearchLink>
