@@ -18,7 +18,12 @@ const SearchLink = ({ href, children }: { href: string; children: React.ReactNod
   );
 };
 
-export const SearchBar = ({ userImage }: { userImage: string | StaticImageData }) => {
+interface NavSearchProps {
+  avatar: string | StaticImageData;
+  searchEnabled: boolean;
+}
+
+export const NavSearch = ({ avatar, searchEnabled }: NavSearchProps) => {
   return (
     <div className="flex flex-col w-[98%] p-10 bg-black text-white m-[1%] rounded-2xl">
       <div className="flex flex-row items-center justify-between">
@@ -33,26 +38,28 @@ export const SearchBar = ({ userImage }: { userImage: string | StaticImageData }
           <SearchLink href="/trends">Trends</SearchLink>
           <SearchLink href="/faq">FAQ</SearchLink>
         </div>
-        <UserProfile userImage={userImage} />
+        <UserProfile userImage={avatar} />
       </div>
-      <div className="flex flex-col lg:flex-row items-center justify-center mt-14 space-y-6 lg:space-y-0 lg:space-x-6">
-        <FilterField
-          icon={<SearchIcon size={18} color="#4B5563" />}
-          placeholder="Search Roles..."
-          queryKey="title"
-        />
-        <FilterField
-          icon={<MapPinIcon size={18} color="#4B5563" />}
-          placeholder="Enter Location..."
-          queryKey="location"
-        />
-        <FilterField
-          icon={<CircleDollarSign size={18} color="#4B5563" />}
-          placeholder="Desired Stipend..."
-          queryKey="stipend"
-          last
-        />
-      </div>
+      {searchEnabled && (
+        <div className="flex flex-col lg:flex-row items-center justify-center mt-14 space-y-6 lg:space-y-0 lg:space-x-6">
+          <FilterField
+            icon={<SearchIcon size={18} color="#4B5563" />}
+            placeholder="Search Roles..."
+            queryKey="title"
+          />
+          <FilterField
+            icon={<MapPinIcon size={18} color="#4B5563" />}
+            placeholder="Enter Location..."
+            queryKey="location"
+          />
+          <FilterField
+            icon={<CircleDollarSign size={18} color="#4B5563" />}
+            placeholder="Desired Stipend..."
+            queryKey="stipend"
+            last
+          />
+        </div>
+      )}
     </div>
   );
 };
