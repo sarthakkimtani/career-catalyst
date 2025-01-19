@@ -6,10 +6,10 @@ const userRepository = new UserRepository();
 
 @JsonController("/internships")
 export class InternshipController {
-  @Authorized()
+  // @Authorized()
   @Get("/")
-  async fetchInternships(@QueryParam("id") id: number) {
-    return await userRepository.getAllInternships(id);
+  async fetchInternships(@QueryParam("page", { required: false }) page: number = 1) {
+    return await userRepository.getPaginatedInternships(page);
   }
 
   @Authorized()

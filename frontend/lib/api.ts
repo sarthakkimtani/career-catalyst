@@ -1,14 +1,17 @@
 import { fetchWrapper } from "@/lib/fetch-wrapper";
 import { Internship, InternshipDetail } from "@/lib/definitions";
 
-export const fetchInternships = async (cookie: string) => {
+export const fetchInternships = async (cookie: string, page: number) => {
   try {
-    const response = await fetchWrapper("/internships", cookie, 7200);
+    const response = await fetchWrapper(`/internships?page=${page}`, cookie, 7200);
     if (!response.ok) {
       return { data: null, error: "An Error Occurred" };
     }
 
-    const data: Internship[] = await response.json();
+    const result = await response.json();
+    const internships: Internship[] = result.data;
+    const data = { internships, total: result.total };
+
     return { data, error: null };
   } catch (error) {
     return { data: null, error: (error as Error).message };

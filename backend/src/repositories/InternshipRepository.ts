@@ -3,22 +3,22 @@ import { NotFoundError } from "routing-controllers";
 
 import prisma from "../lib/prisma.js";
 
+const PAGE_SIZE = 30;
+
 export class UserRepository {
-  async getAllInternships(lastId?: number) {
-    const pageSize = 42;
+  async getPaginatedInternships(page: number) {
+    const count = await prisma.internship.count();
+    const skip = (page - 1) * PAGE_SIZE;
+
     const internshipFields = Object.fromEntries(
       Object.keys(Prisma.InternshipScalarFieldEnum)
         .filter((field) => field !== "description")
         .map((field) => [field, true])
     );
 
-    return await prisma.internship.findMany({
-      take: pageSize,
-      skip: lastId ? 1 : 0,
-      cursor: lastId ? { id: lastId } : undefined,
-      orderBy: {
-        id: "asc",
-      },
+    const data = await prisma.internship.findMany({
+      skip,
+      take: PAGE_SIZE,
       select: {
         ...internshipFields,
         company: {
@@ -29,6 +29,8 @@ export class UserRepository {
         },
       },
     });
+
+    return { data, total: count / PAGE_SIZE };
   }
 
   async getInternshipById(id: number) {
