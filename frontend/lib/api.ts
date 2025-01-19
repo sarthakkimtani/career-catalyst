@@ -1,9 +1,9 @@
 import { fetchWrapper } from "@/lib/fetch-wrapper";
 import { Internship, InternshipDetail } from "@/lib/definitions";
 
-export const fetchInternships = async (cookie: string, page: number) => {
+export const fetchInternships = async (cookie: string, params: URLSearchParams) => {
   try {
-    const response = await fetchWrapper(`/internships?page=${page}`, cookie, 7200);
+    const response = await fetchWrapper(`/internships?${params.toString()}`, cookie, 7200);
     if (!response.ok) {
       return { data: null, error: "An Error Occurred" };
     }
