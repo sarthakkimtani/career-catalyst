@@ -1,19 +1,13 @@
 import { Prisma } from "@prisma/client";
 import { NotFoundError } from "routing-controllers";
 
+import { InternshipQueryParams } from "../dtos/InternshipQueryParams.js";
 import prisma from "../lib/prisma.js";
 
 const PAGE_SIZE = 30;
 
-interface Filters {
-  title?: string;
-  location?: string;
-  stipend?: number;
-  mode?: string;
-}
-
 export class InternshipRepository {
-  async getPaginatedInternships(page: number, filters: Filters = {}) {
+  async getPaginatedInternships(page: number, filters: InternshipQueryParams = {}) {
     const skip = (page - 1) * PAGE_SIZE;
     const where = this.buildFilters(filters);
 
@@ -47,7 +41,7 @@ export class InternshipRepository {
     };
   }
 
-  private buildFilters(filters: Filters): Prisma.InternshipWhereInput {
+  private buildFilters(filters: InternshipQueryParams): Prisma.InternshipWhereInput {
     const where: Prisma.InternshipWhereInput = {};
 
     if (filters.title) {

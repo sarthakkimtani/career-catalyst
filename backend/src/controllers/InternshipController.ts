@@ -1,26 +1,17 @@
-import { Get, JsonController, QueryParam, Param, Authorized } from "routing-controllers";
+import { Get, JsonController, Param, Authorized, QueryParams } from "routing-controllers";
 
 import { InternshipRepository } from "../repositories/InternshipRepository.js";
+import { InternshipQueryParams } from "../dtos/InternshipQueryParams.js";
 
-const internshipRepository = new InternshipRepository();
+export const internshipRepository = new InternshipRepository();
 
 @JsonController("/internships")
 export class InternshipController {
   @Authorized()
   @Get("/")
-  async fetchInternships(
-    @QueryParam("page", { required: false }) page: number = 1,
-    @QueryParam("title", { required: false }) title?: string,
-    @QueryParam("location", { required: false }) location?: string,
-    @QueryParam("stipend", { required: false }) stipend?: number,
-    @QueryParam("mode", { required: false }) mode?: string
-  ) {
-    return await internshipRepository.getPaginatedInternships(page, {
-      title,
-      location,
-      stipend,
-      mode,
-    });
+  async fetchInternships(@QueryParams() query: InternshipQueryParams) {
+    const { page } = query;
+    return await internshipRepository.getPaginatedInternships(page || 1, query);
   }
 
   @Authorized()
