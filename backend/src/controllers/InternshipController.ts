@@ -3,7 +3,7 @@ import { Get, JsonController, Param, Authorized, QueryParams } from "routing-con
 import { InternshipRepository } from "../repositories/InternshipRepository.js";
 import { InternshipQueryParams } from "../dtos/InternshipQueryParams.js";
 
-export const internshipRepository = new InternshipRepository();
+const internshipRepository = new InternshipRepository();
 
 @JsonController("/internships")
 export class InternshipController {
