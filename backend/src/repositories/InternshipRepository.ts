@@ -1,34 +1,77 @@
 import { Prisma } from "@prisma/client";
 import { NotFoundError } from "routing-controllers";
 
+import { InternshipQueryParams } from "../dtos/InternshipQueryParams.js";
 import prisma from "../lib/prisma.js";
 
-export class UserRepository {
-  async getAllInternships(lastId?: number) {
-    const pageSize = 42;
+const PAGE_SIZE = 30;
+
+export class InternshipRepository {
+  async getPaginatedInternships(page: number, filters: InternshipQueryParams = {}) {
+    const skip = (page - 1) * PAGE_SIZE;
+    const where = this.buildFilters(filters);
+
     const internshipFields = Object.fromEntries(
       Object.keys(Prisma.InternshipScalarFieldEnum)
         .filter((field) => field !== "description")
         .map((field) => [field, true])
     );
 
-    return await prisma.internship.findMany({
-      take: pageSize,
-      skip: lastId ? 1 : 0,
-      cursor: lastId ? { id: lastId } : undefined,
-      orderBy: {
-        id: "asc",
-      },
-      select: {
-        ...internshipFields,
-        company: {
-          select: {
-            name: true,
-            logoUrl: true,
+    const [data, count] = await Promise.all([
+      prisma.internship.findMany({
+        where,
+        skip,
+        take: PAGE_SIZE,
+        select: {
+          ...internshipFields,
+          company: {
+            select: {
+              name: true,
+              logoUrl: true,
+            },
           },
         },
-      },
-    });
+      }),
+      prisma.internship.count({ where }),
+    ]);
+
+    return {
+      data,
+      total: Math.ceil(count / PAGE_SIZE),
+    };
+  }
+
+  private buildFilters(filters: InternshipQueryParams): Prisma.InternshipWhereInput {
+    const where: Prisma.InternshipWhereInput = {};
+
+    if (filters.title) {
+      where.title = {
+        contains: filters.title,
+        mode: "insensitive",
+      };
+    }
+    if (filters.location) {
+      where.location = {
+        contains: filters.location,
+        mode: "insensitive",
+      };
+    }
+    if (filters.stipend) {
+      where.stipend = {
+        gte: filters.stipend,
+      };
+    }
+
+    if (filters.mode) {
+      const modes = filters.mode.split(",").map((mode) => mode.trim().toLowerCase());
+      if (modes.includes("remote")) {
+        where.location = "Work from home";
+      } else {
+        where.location = { not: "Work from home" };
+      }
+    }
+
+    return where;
   }
 
   async getInternshipById(id: number) {

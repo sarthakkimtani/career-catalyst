@@ -14,6 +14,7 @@ const config: Config = {
         sans: ["ClashGrotesk", "sans-serif"],
       },
       colors: {
+        primary: "#0851C2",
         pastel: {
           purple: "#E4DBFA",
           pink: "#FBE2F4",
