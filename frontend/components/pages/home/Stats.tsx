@@ -10,14 +10,14 @@ export const Stats = () => {
       <Divider />
       <div className="flex flex-col md:flex-row w-9/12 items-center justify-between px-10">
         <div className="w-full md:w-6/12 text-md text-center md:text-left md:text-lg">
-          Our platform hosts 1000+ internships to help individuals kickstart their careers and
+          Our platform hosts 6000+ internships to help individuals kickstart their careers and
           achieve their goals.
         </div>
         <div className="w-6/12 flex flex-row justify-center md:justify-end mt-10 md:mt-0">
           <Counter
             className="text-5xl md:text-6xl lg:text-8xl font-bold text-right"
             from={0}
-            to={1000}
+            to={6000}
           />
           <span className="text-5xl md:text-6xl lg:text-8xl font-bold text-right">+</span>
         </div>
@@ -25,14 +25,14 @@ export const Stats = () => {
       <Divider />
       <div className="flex flex-col md:flex-row w-9/12 items-center justify-between px-10">
         <div className="w-full md:w-6/12 text-md text-center md:text-left md:text-lg">
-          We tap into the vast network of 500+ leading companies, providing a wide range of valuable
-          & diverse career opportunities.
+          We tap into the vast network of 1000+ leading companies, providing a wide range of
+          valuable & diverse career opportunities.
         </div>
         <div className="w-6/12 flex flex-row justify-center md:justify-end mt-10 md:mt-0">
           <Counter
             className="text-5xl md:text-6xl lg:text-8xl font-bold text-right"
             from={0}
-            to={500}
+            to={1000}
           />
           <span className="text-5xl md:text-6xl lg:text-8xl font-bold text-right">+</span>
         </div>
