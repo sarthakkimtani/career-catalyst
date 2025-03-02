@@ -1,14 +1,12 @@
 import { BrandImage } from "@/components/ui/BrandImage";
 
-import Internshala from "@/assets/brands/internshala.png";
-import Linkedin from "@/assets/brands/linkedin.png";
-import Indeed from "@/assets/brands/indeed.png";
+import Naukri from "@/assets/brands/naukri.png";
+import AICTE from "@/assets/brands/AICTE.png";
 
 export const BrandsList = () => {
   const platforms = [
-    { logo: Internshala, url: "https://internshala.com" },
-    { logo: Linkedin, url: "https://linkedin.com" },
-    { logo: Indeed, url: "https://indeed.com" },
+    { logo: Naukri, url: "https://naukri.com" },
+    { logo: AICTE, url: "https://internship.aicte-india.org/" },
   ];
 
   return (

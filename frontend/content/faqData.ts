@@ -2,7 +2,7 @@ export const faqData = [
   {
     question: "What is CareerCatalyst?",
     answer:
-      "CareerCatalyst is a platform that aggregates internship opportunities from multiple sources like LinkedIn and Indeed. It also provides insights into industry trends, helping candidates find relevant roles and stay updated on market demands.",
+      "CareerCatalyst is a platform that aggregates internship opportunities from multiple sources like Naukri and AICTE National Internship Portal. It also provides insights into industry trends, helping candidates find relevant roles and stay updated on market demands.",
   },
   {
     question: "How often are the internships updated?",
@@ -17,7 +17,7 @@ export const faqData = [
   {
     question: "How can I trust the data provided on CareerCatalyst?",
     answer:
-      "The data is sourced from reliable platforms like LinkedIn and Indeed. Additionally, our systems integrates robust error handling and caching mechanisms to ensure accuracy and efficiency.",
+      "The data is sourced from reliable platforms like Naukri and AICTE. Additionally, our systems integrates robust error handling and caching mechanisms to ensure accuracy and efficiency.",
   },
   {
     question: "How does CareerCatalyst help me stay ahead in my career?",

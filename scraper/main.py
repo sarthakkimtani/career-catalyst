@@ -51,7 +51,7 @@ class ScraperApp:
 
     async def run(self) -> None:
         try:
-            self.logger.info("Starting Internshala scraping process")
+            self.logger.info("Starting Internship scraping process")
 
             internship_skill_dict, companies = self.scraper.scrape()
             self.db.upsert_companies(companies)

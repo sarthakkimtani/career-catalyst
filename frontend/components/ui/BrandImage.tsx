@@ -20,7 +20,7 @@ export const BrandImage = ({ src, href }: BrandImageProps) => {
       viewport={{ once: true }}
     >
       <Image
-        className="w-44 xl:w-56 grayscale transition duration-100 ease-in-out hover:grayscale-0"
+        className="w-48 mt-5 grayscale transition duration-100 ease-in-out hover:grayscale-0"
         src={src}
         alt="brand-logo"
       />
