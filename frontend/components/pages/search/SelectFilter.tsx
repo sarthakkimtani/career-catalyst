@@ -30,6 +30,14 @@ export const SelectFilter = ({ title, values, queryKey }: SelectFilterProps) => 
       currentParams.append(queryKey, checkedValues.join(","));
     }
 
+    // Only reset to page 1 when there are other filter params
+    const hasFilters = Array.from(currentParams.keys()).some(
+      (key) => key !== "page" && currentParams.get(key)
+    );
+    if (hasFilters) {
+      currentParams.set("page", "1");
+    }
+
     router.push(`${pathname}?${currentParams.toString()}`);
   }, [checkedValues, pathname, queryKey, router, searchParamsSnapshot]);
 

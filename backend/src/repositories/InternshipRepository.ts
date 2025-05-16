@@ -71,6 +71,18 @@ export class InternshipRepository {
       }
     }
 
+    if (filters.duration) {
+      const durationRange = filters.duration.toLowerCase();
+
+      if (durationRange === "0-3 months") {
+        where.duration = { gte: 0, lte: 3 };
+      } else if (durationRange === "3-6 months") {
+        where.duration = { gt: 3, lte: 6 };
+      } else if (durationRange === "6+ months") {
+        where.duration = { gt: 6 };
+      }
+    }
+
     return where;
   }
 

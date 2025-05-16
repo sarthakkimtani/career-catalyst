@@ -15,6 +15,12 @@ export const SearchBar = () => {
     "Machine Learning",
   ];
 
+  const redirectToSearch = (tag: string) => {
+    const params = new URLSearchParams();
+    params.set("title", tag);
+    router.push(`/search?${params.toString()}`);
+  };
+
   return (
     <>
       <div className="flex flex-row items-center h-20 w-11/12 md:w-10/12 lg:w-3/5 px-5 mt-12 rounded-full bg-white">
@@ -32,6 +38,7 @@ export const SearchBar = () => {
         {popularTags.map((tag) => (
           <button
             key={tag}
+            onClick={() => redirectToSearch(tag)}
             className="px-4 py-1 bg-white/10 text-white rounded-full hover:bg-white/20 transition text-sm md:text-base"
           >
             {tag}

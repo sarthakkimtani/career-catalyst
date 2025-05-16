@@ -20,4 +20,8 @@ export class InternshipQueryParams {
   @IsOptional()
   @IsString()
   mode?: string;
+
+  @IsOptional()
+  @IsString()
+  duration?: string;
 }

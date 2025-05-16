@@ -27,6 +27,12 @@ export const FilterField = ({ icon, placeholder, queryKey, last }: FilterFieldPr
         params.delete(queryKey);
       }
 
+      // Only reset to page 1 when there are other filter params
+      const hasFilters = Array.from(params.keys()).some((key) => key !== "page" && params.get(key));
+      if (hasFilters) {
+        params.set("page", "1");
+      }
+
       const queryString = params.toString();
       if (queryString !== searchParams.toString()) {
         router.push(`${pathname}${queryString ? `?${queryString}` : ""}`);
