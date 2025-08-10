@@ -12,8 +12,10 @@ import { LoggingMiddleware } from "./middlewares/LoggingMiddleware.js";
 import { CustomErrorHandler } from "./middlewares/CustomErrorHandler.js";
 import { authorizationChecker } from "./middlewares/authorizationChecker.js";
 
-import { logger } from "./lib/logger.js";
 import { auth } from "./lib/auth.js";
+import { logger } from "./lib/logger.js";
+import { CronScheduler } from "./jobs/CronScheduler.js";
+import { testConnection, createInternshipIndex } from "./lib/elasticsearch.js";
 
 const PORT = process.env.PORT;
 const corsOptions = {
@@ -35,6 +37,22 @@ useExpressServer(app, {
 
 app.all("/auth/*", toNodeHandler(auth));
 
+async function initializeElasticsearch() {
+  try {
+    const isConnected = await testConnection();
+    if (isConnected) {
+      await createInternshipIndex();
+      CronScheduler.start();
+      logger.info("Elasticsearch initialized and cron jobs started");
+    } else {
+      logger.warn("Elasticsearch is not available. Search will fallback to database.");
+    }
+  } catch (error) {
+    logger.error("Error initializing Elasticsearch:", error);
+  }
+}
+
 app.listen(PORT, () => {
   logger.info(`Server running on port ${PORT}`);
+  initializeElasticsearch();
 });

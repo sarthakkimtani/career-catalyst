@@ -1,13 +1,24 @@
 import { Prisma } from "@prisma/client";
 import { NotFoundError } from "routing-controllers";
 
-import { InternshipQueryParams } from "../dtos/InternshipQueryParams.js";
 import prisma from "../lib/prisma.js";
+import { InternshipQueryParams } from "../dtos/InternshipQueryParams.js";
+import { ElasticsearchService } from "../services/ElasticsearchService.js";
 
 const PAGE_SIZE = 30;
+const elasticsearchService = new ElasticsearchService();
 
 export class InternshipRepository {
   async getPaginatedInternships(page: number, filters: InternshipQueryParams = {}) {
+    try {
+      return await elasticsearchService.searchInternships(filters, page, PAGE_SIZE);
+    } catch (error) {
+      console.error("Elasticsearch failed, falling back to database:", error);
+      return this.getFallbackInternships(page, filters);
+    }
+  }
+
+  private async getFallbackInternships(page: number, filters: InternshipQueryParams = {}) {
     const skip = (page - 1) * PAGE_SIZE;
     const where = this.buildFilters(filters);
 
@@ -38,6 +49,7 @@ export class InternshipRepository {
     return {
       data,
       total: Math.ceil(count / PAGE_SIZE),
+      count,
     };
   }
 

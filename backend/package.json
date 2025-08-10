@@ -10,7 +10,11 @@
     "dev": "node --watch --no-warnings --loader ts-node/esm src/app.ts",
     "prisma:migrate": "prisma migrate deploy",
     "prisma:generate": "prisma generate",
-    "deploy": "pnpm run build && pnpm run prisma:generate && pnpm run prisma:migrate"
+    "deploy": "pnpm run build && pnpm run prisma:generate && pnpm run prisma:migrate",
+    "reindex": "node --loader ts-node/esm src/scripts/reindex.ts",
+    "reindex:full": "node --loader ts-node/esm src/scripts/reindex.ts full",
+    "reindex:incremental": "node --loader ts-node/esm src/scripts/reindex.ts incremental",
+    "test:elasticsearch": "node --loader ts-node/esm src/scripts/test-elasticsearch.ts"
   },
   "author": "Sarthak Kimtani",
   "license": "ISC",
@@ -24,6 +28,7 @@
     "typescript": "^5.6.2"
   },
   "dependencies": {
+    "@elastic/elasticsearch": "^9.0.3",
     "@prisma/client": "^5.21.0",
     "better-auth": "^1.1.5",
     "body-parser": "^1.20.3",
@@ -32,6 +37,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
+    "node-cron": "^4.2.1",
     "reflect-metadata": "^0.2.2",
     "routing-controllers": "^0.10.4",
     "winston": "^3.15.0"
