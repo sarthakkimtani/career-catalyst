@@ -4,7 +4,7 @@ import { MouseEventHandler } from "react";
 import { motion } from "motion/react";
 
 interface ButtonProps {
-  className: string | undefined;
+  className?: string | undefined;
   children: React.ReactNode;
   onClick?: MouseEventHandler<HTMLButtonElement> | undefined;
 }

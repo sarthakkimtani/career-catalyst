@@ -7,6 +7,7 @@ import { useExpressServer } from "routing-controllers";
 import { toNodeHandler } from "better-auth/node";
 
 import { InternshipController } from "./controllers/InternshipController.js";
+import { TrendsController } from "./controllers/TrendsController.js";
 
 import { LoggingMiddleware } from "./middlewares/LoggingMiddleware.js";
 import { CustomErrorHandler } from "./middlewares/CustomErrorHandler.js";
@@ -28,7 +29,7 @@ const app = express();
 app.use(cors(corsOptions));
 
 useExpressServer(app, {
-  controllers: [InternshipController],
+  controllers: [InternshipController, TrendsController],
   middlewares: [LoggingMiddleware, CustomErrorHandler],
   authorizationChecker: authorizationChecker,
   defaultErrorHandler: false,

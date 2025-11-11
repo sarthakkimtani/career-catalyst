@@ -47,7 +47,7 @@ export const Navbar = () => {
       }}
     >
       <motion.div
-        className="flex flex-row w-11/12 sm:w-1/2 md:1/3 lg:w-1/3 items-center px-4 bg-white  h-20 rounded-full mt-12 drop-shadow-xl"
+        className="flex flex-row w-11/12 sm:w-1/2 md:w-1/3 lg:w-1/3 items-center px-4 bg-white h-20 rounded-full mt-12 drop-shadow-xl"
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{
@@ -56,15 +56,23 @@ export const Navbar = () => {
           delay: 0.2,
         }}
       >
-        <Link href="/">
-          <Image className="w-16 h-16" src={Logo} alt="logo" />
-        </Link>
-        <div className="w-4/5 xl:w-1/2 flex flex-row justify-evenly">
+        {/* Logo + Website Name */}
+        <div className="flex items-center gap-2 flex-shrink-0">
+          <Link href="/" className="flex items-center gap-2">
+            <Image className="w-10 h-10" src={Logo} alt="logo" />
+            <h3 className="hidden sm:block text-lg font-medium">CareerCatalyst</h3>
+          </Link>
+        </div>
+
+        {/* Links - center */}
+        <div className="flex flex-1 justify-center">
           <NavbarLink href="/faq">FAQ</NavbarLink>
           <NavbarLink href="/search">Search</NavbarLink>
         </div>
-        <div className="flex w-1/5 xl:w-[30%] xl:ml-8 justify-end">
-          <Button className="xl:w-full" onClick={() => router.push("/trends")}>
+
+        {/* Trends Button - right */}
+        <div className="flex flex-shrink-0">
+          <Button onClick={() => router.push("/trends")}>
             <Flame className="mr-1" />
             <span className="hidden lg:block">Trends</span>
           </Button>

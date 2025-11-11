@@ -18,7 +18,7 @@ export default async function SearchLayout({
 }>) {
   const reqHeaders = await headers();
   const { data: auth } = await getSession(reqHeaders);
-  if (!auth) redirect("/auth");
+  if (!auth) redirect("/auth?redirect=search");
 
   return (
     <>

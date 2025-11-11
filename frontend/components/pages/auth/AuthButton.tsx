@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 
 import { authClient } from "@/lib/auth-client";
 import { cn } from "@/utils/cn";
@@ -16,13 +17,16 @@ interface AuthButtonProps {
 
 export const AuthButton = ({ className, variant }: AuthButtonProps) => {
   const [disabled, setDisabled] = useState<boolean>(false);
+  const searchParams = useSearchParams();
 
   const handleAuth = async () => {
+    const redirect = searchParams.get("redirect");
+
     try {
       setDisabled(true);
       await authClient.signIn.social({
         provider: variant,
-        callbackURL: `${window.location.origin}/search`,
+        callbackURL: `${window.location.origin}/${redirect}`,
       });
     } catch (error) {
       console.error(error);

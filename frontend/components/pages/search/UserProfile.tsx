@@ -19,7 +19,7 @@ export const UserProfile = ({ userImage }: { userImage: string | StaticImageData
   const handleSignOut = async () => {
     await authClient.signOut({
       fetchOptions: {
-        onSuccess: () => router.push("/auth"),
+        onSuccess: () => router.push("/"),
       },
     });
     setPopoverOpen(false);

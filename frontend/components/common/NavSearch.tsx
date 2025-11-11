@@ -25,14 +25,12 @@ interface NavSearchProps {
 
 export const NavSearch = ({ avatar, searchEnabled }: NavSearchProps) => {
   return (
-    <div className="flex flex-col w-[98%] p-10 bg-black text-white m-[1%] rounded-2xl">
+    <div className="flex flex-col w-[98%] py-8 px-6 lg:p-10 bg-black text-white m-[1%] rounded-2xl">
       <div className="flex flex-row items-center justify-between">
-        <div className="flex flex-row w-1/4 items-center justify-start">
-          <Link href="/">
-            <Image className="w-10 cursor-pointer" src={Logo} draggable={false} alt="Logo" />
-          </Link>
+        <Link className="flex flex-row w-auto sm:w-1/4 items-center justify-start" href="/">
+          <Image className="w-10 cursor-pointer" src={Logo} draggable={false} alt="Logo" />
           <h3 className="text-xl font-semibold ml-4">CareerCatalyst</h3>
-        </div>
+        </Link>
         <div className="hidden lg:flex flex-row w-1/3 justify-start items-center">
           <SearchLink href="/">Features</SearchLink>
           <SearchLink href="/trends">Trends</SearchLink>
